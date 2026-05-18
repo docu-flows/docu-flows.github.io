@@ -37,6 +37,19 @@
   /* Type */
   --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --lao: 'Saysettha OT', 'Noto Sans Lao', 'Phetsarath OT', 'Saysettha', system-ui, sans-serif;
+}
+
+/* Saysettha OT — prefer local install, otherwise fetch the embedded font.
+   WOFF2 is tried first (modern browsers); TTF is a legacy fallback.
+   If nothing resolves, the Lao stack falls through to Noto Sans Lao. */
+@font-face {
+  font-family: 'Saysettha OT';
+  src: local('Saysettha OT'),
+       local('Saysettha'),
+       url('assets/fonts/saysettha_ot.woff2') format('woff2'),
+       url('assets/fonts/saysettha_ot.ttf') format('truetype');
+  font-display: swap;
 }
 
 * { box-sizing: border-box; }
@@ -126,6 +139,36 @@ p { margin: 0 0 1em; color: var(--text-soft); }
 }
 .nav-links a { transition: color .15s; }
 .nav-links a:hover { color: var(--text); }
+
+/* Language switcher */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--bg-muted);
+  border-radius: 8px;
+  font-size: 12.5px;
+}
+.lang-btn {
+  padding: 4px 9px;
+  border-radius: 6px;
+  color: var(--text-dim);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12.5px;
+  line-height: 1.2;
+  transition: color .15s, background .15s;
+}
+.lang-btn:hover { color: var(--text); }
+.lang-btn.active {
+  background: #fff;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
 
 .nav-toggle {
   display: none;
@@ -518,6 +561,105 @@ p { margin: 0 0 1em; color: var(--text-soft); }
   gap: 10px;
 }
 
+/* =========================
+   Workflow section
+   ========================= */
+.workflow-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  position: relative;
+}
+.workflow-grid::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 7%;
+  right: 7%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong) 12%, var(--border-strong) 88%, transparent);
+  z-index: 0;
+}
+.wf-card {
+  position: relative;
+  z-index: 1;
+  padding: 22px 18px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.wf-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+.wf-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+.wf-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--text);
+  line-height: 1.3;
+}
+.wf-card p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+@media (max-width: 1080px) {
+  .workflow-grid { grid-template-columns: repeat(3, 1fr); }
+  .workflow-grid::before { display: none; }
+}
+@media (max-width: 560px) {
+  .workflow-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Workflow strip (DocuFlow lifecycle) */
+.workflow-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 14px;
+  margin: 4px 0 4px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.wf-step {
+  padding: 6px 11px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+.wf-arrow {
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 500;
+}
+
 /* FlowBiz module chips */
 .module-grid {
   display: grid;
@@ -670,20 +812,26 @@ p { margin: 0 0 1em; color: var(--text-soft); }
   inset: 18%;
   border: 1px solid var(--border-strong);
   border-radius: 50%;
+  animation: spin 28s linear infinite;
 }
 .ring::before {
   content: "";
   position: absolute;
-  top: -4px; left: 50%;
-  width: 8px; height: 8px;
+  top: -5px; left: 50%;
+  width: 10px; height: 10px;
   background: var(--primary);
   border-radius: 50%;
   transform: translateX(-50%);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
 }
-.ring-2 { inset: 8%; }
-.ring-2::before { background: var(--text); }
-.ring-3 { inset: 28%; }
-.ring-3::before { background: var(--primary); opacity: 0.4; }
+.ring-2 { inset: 8%; animation-duration: 38s; animation-direction: reverse; }
+.ring-2::before { background: var(--text); box-shadow: 0 0 0 4px rgba(10, 10, 15, 0.06); }
+.ring-3 { inset: 28%; animation-duration: 20s; }
+.ring-3::before { background: var(--primary); opacity: 0.55; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 .about-center {
   position: relative;
   font-family: var(--serif);
@@ -930,4 +1078,30 @@ p { margin: 0 0 1em; color: var(--text-soft); }
     animation-duration: 0.001s !important;
     transition-duration: 0.001s !important;
   }
+}
+
+/* =========================
+   Lao typography
+   Apply Saysettha OT (local) → Noto Sans Lao (web) to any Lao text.
+   Matches when UI lang = 'lo' (whole doc) or for elements with lang="lo"
+   regardless of active UI language (e.g. address block, switcher label).
+   ========================= */
+:lang(lo),
+:lang(lo) h1, :lang(lo) h2, :lang(lo) h3, :lang(lo) h4, :lang(lo) h5,
+:lang(lo) .hero-title, :lang(lo) .product-title, :lang(lo) .about-center,
+:lang(lo) .section-head h2, :lang(lo) .contact-card h2,
+:lang(lo) .logo-text, :lang(lo) input, :lang(lo) select, :lang(lo) textarea,
+:lang(lo) button {
+  font-family: var(--lao);
+}
+
+/* Lao tends to need a hair more line-height to breathe with its tone marks */
+:lang(lo) {
+  line-height: 1.65;
+}
+:lang(lo) .hero-title,
+:lang(lo) .section-head h2,
+:lang(lo) .product-title,
+:lang(lo) .contact-card h2 {
+  line-height: 1.18;
 }

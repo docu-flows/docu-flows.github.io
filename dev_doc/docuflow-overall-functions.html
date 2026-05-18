@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocuFlow - Overall System Functions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 50px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .tech-stack span {
+      background: rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 24px;
+      margin-bottom: 50px;
+    }
+
+    .module {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 5px solid;
+    }
+
+    .module:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+    }
+
+    .module.auth { border-top-color: #3b82f6; }
+    .module.dashboard { border-top-color: #10b981; }
+    .module.document { border-top-color: #f59e0b; }
+    .module.sign { border-top-color: #ef4444; }
+    .module.report { border-top-color: #8b5cf6; }
+    .module.manage { border-top-color: #ec4899; }
+    .module.settings { border-top-color: #14b8a6; }
+    .module.system { border-top-color: #6366f1; }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #f3f4f6;
+    }
+
+    .module-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .module.auth .module-icon { background: #3b82f6; }
+    .module.dashboard .module-icon { background: #10b981; }
+    .module.document .module-icon { background: #f59e0b; }
+    .module.sign .module-icon { background: #ef4444; }
+    .module.report .module-icon { background: #8b5cf6; }
+    .module.manage .module-icon { background: #ec4899; }
+    .module.settings .module-icon { background: #14b8a6; }
+    .module.system .module-icon { background: #6366f1; }
+
+    .module-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .module-subtitle {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      padding: 10px 0;
+      padding-left: 26px;
+      position: relative;
+      color: #374151;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      border-bottom: 1px dashed #f3f4f6;
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: white;
+    }
+
+    .module.auth .feature-list li::before { background: #3b82f6; }
+    .module.dashboard .feature-list li::before { background: #10b981; }
+    .module.document .feature-list li::before { background: #f59e0b; }
+    .module.sign .feature-list li::before { background: #ef4444; }
+    .module.report .feature-list li::before { background: #8b5cf6; }
+    .module.manage .feature-list li::before { background: #ec4899; }
+    .module.settings .feature-list li::before { background: #14b8a6; }
+    .module.system .feature-list li::before { background: #6366f1; }
+
+    .feature-list .route {
+      display: inline-block;
+      background: #f9fafb;
+      color: #6b7280;
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      margin-left: 6px;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* Roles section */
+    .section {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      font-size: 1.7rem;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .section .section-desc {
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .role-card {
+      padding: 18px;
+      border-radius: 10px;
+      border: 2px solid;
+      background: #fafafa;
+    }
+
+    .role-card.super { border-color: #dc2626; background: #fef2f2; }
+    .role-card.admin { border-color: #f59e0b; background: #fffbeb; }
+    .role-card.administrator { border-color: #8b5cf6; background: #faf5ff; }
+    .role-card.user { border-color: #10b981; background: #ecfdf5; }
+
+    .role-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      color: #111827;
+    }
+
+    .role-card p {
+      font-size: 0.85rem;
+      color: #4b5563;
+      line-height: 1.4;
+    }
+
+    /* Workflow */
+    .workflow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .step {
+      padding: 14px 22px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .arrow {
+      color: #667eea;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* Status legend */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-item .label {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .status-item .desc {
+      display: block;
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    footer {
+      text-align: center;
+      color: rgba(255,255,255,0.85);
+      margin-top: 40px;
+      padding-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      .module { padding: 20px; }
+      .section { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📄 DocuFlow</h1>
+      <p>Digital Document Management & Electronic Signature Platform — Overall System Functions</p>
+      <div class="tech-stack">
+        <span>React</span>
+        <span>TypeScript</span>
+        <span>Vite</span>
+        <span>Tailwind CSS</span>
+        <span>shadcn/ui</span>
+        <span>React Router</span>
+        <span>React Query</span>
+        <span>i18n (EN / ລາວ)</span>
+        <span>Clean Architecture</span>
+      </div>
+    </header>
+
+    <div class="modules-grid">
+
+      <!-- Authentication Module -->
+      <div class="module auth">
+        <div class="module-header">
+          <div class="module-icon">🔐</div>
+          <div>
+            <div class="module-title">Authentication & Security</div>
+            <div class="module-subtitle">Access control and identity verification</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>User Login <span class="route">/login</span></li>
+          <li>User Registration <span class="route">/register</span></li>
+          <li>OTP Verification <span class="route">/verify-otp</span></li>
+          <li>Forgot Password <span class="route">/forgot-password</span></li>
+          <li>Reset Password <span class="route">/reset-password</span></li>
+          <li>Account Activation <span class="route">/activate</span></li>
+          <li>Two-Factor Authentication Setup <span class="route">/setup-2fa</span></li>
+          <li>2FA Verification <span class="route">/verify-2fa</span></li>
+          <li>Change Password <span class="route">/settings/change-password</span></li>
+          <li>Role-based route protection</li>
+        </ul>
+      </div>
+
+      <!-- Dashboard Module -->
+      <div class="module dashboard">
+        <div class="module-header">
+          <div class="module-icon">📊</div>
+          <div>
+            <div class="module-title">Dashboard</div>
+            <div class="module-subtitle">Overview and key metrics</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>Main dashboard view <span class="route">/dashboard</span></li>
+          <li>Document statistics cards (totals by status)</li>
+          <li>Recent documents widget</li>
+          <li>Expiration alert widget</li>
+          <li>Quick-access summary tiles</li>
+          <li>Visual KPIs for completed / pending / cancelled</li>
+        </ul>
+      </div>
+
+      <!-- Document Management -->
+      <div class="module document">
+        <div class="module-header">
+          <div class="module-icon">📁</div>
+          <div>
+            <div class="module-title">Document Management</div>
+            <div class="module-subtitle">Upload, browse, filter and view documents</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>Upload new documents <span class="route">/upload</span></li>
+          <li>Document list with tabs <span class="route">/documents</span></li>
+          <li>Waiting / pending queue <span class="route">/waiting</span></li>
+          <li>Document history <span class="route">/history</span></li>
+          <li>Document preview <span class="route">/document-preview</span></li>
+          <li>Document details modal & view modal</li>
+          <li>Status badges (draft / pending / completed / cancelled)</li>
+          <li>Advanced filters and search</li>
+          <li>Document cards with metadata</li>
+        </ul>
+      </div>
+
+      <!-- Signing Module -->
+      <div class="module sign">
+        <div class="module-header">
+          <div class="module-icon">✍️</div>
+          <div>
+            <div class="module-title">Electronic Signing</div>
+            <div class="module-subtitle">Internal and external signing flows</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>Signer-flow modal (multi-step)</li>
+          <li>External signer link <span class="route">/external-sign</span></li>
+          <li>View signed PDF <span class="route">/view-pdf-signed/:id</span></li>
+          <li>Multi-signer ordering & routing</li>
+          <li>Signature placement on PDF</li>
+          <li>Signed-document distribution</li>
+          <li>External-signer usage tracking</li>
+        </ul>
+      </div>
+
+      <!-- Reports Module -->
+      <div class="module report">
+        <div class="module-header">
+          <div class="module-icon">📈</div>
+          <div>
+            <div class="module-title">Reports & Analytics</div>
+            <div class="module-subtitle">Operational and sales reporting</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>All documents report <span class="route">/report/all-documents</span></li>
+          <li>Pending documents report <span class="route">/report/pending</span></li>
+          <li>Completed documents report <span class="route">/report/complete</span></li>
+          <li>Cancelled documents report <span class="route">/report/cancel</span></li>
+          <li>External signer usage <span class="route">/report/external-signer-usage</span></li>
+          <li>Quotation report <span class="route">/report/quotations</span></li>
+          <li>Quotation sales report <span class="route">/report/quotation-sales</span></li>
+        </ul>
+      </div>
+
+      <!-- Management Module -->
+      <div class="module manage">
+        <div class="module-header">
+          <div class="module-icon">💼</div>
+          <div>
+            <div class="module-title">Business Management</div>
+            <div class="module-subtitle">Customers, registrations and quotations</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>New customer registration <span class="route">/manage/new-register</span></li>
+          <li>Customer directory <span class="route">/manage/customers</span></li>
+          <li>Quotation list <span class="route">/manage/quotations</span></li>
+          <li>Create new quotation <span class="route">/manage/quotations/new</span></li>
+          <li>View quotation detail <span class="route">/manage/quotations/:id</span></li>
+          <li>Edit quotation <span class="route">/manage/quotations/:id/edit</span></li>
+        </ul>
+      </div>
+
+      <!-- Settings Module -->
+      <div class="module settings">
+        <div class="module-header">
+          <div class="module-icon">⚙️</div>
+          <div>
+            <div class="module-title">Settings & Administration</div>
+            <div class="module-subtitle">Organisation, users and configuration</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>User management <span class="route">/settings/users</span></li>
+          <li>Role management <span class="route">/settings/role</span></li>
+          <li>Business information <span class="route">/settings/business-information</span></li>
+          <li>Departments <span class="route">/settings/department</span></li>
+          <li>Units <span class="route">/settings/unit</span></li>
+          <li>Document types <span class="route">/settings/document-type</span></li>
+          <li>Service packages <span class="route">/settings/service-packages</span></li>
+          <li>Business service packages <span class="route">/settings/business-service-packages</span></li>
+          <li>Two-factor settings <span class="route">/settings/two-factor</span></li>
+          <li>User profile <span class="route">/settings/profile</span></li>
+          <li>Audit log <span class="route">/settings/audit-log</span></li>
+        </ul>
+      </div>
+
+      <!-- System / Public -->
+      <div class="module system">
+        <div class="module-header">
+          <div class="module-icon">🌐</div>
+          <div>
+            <div class="module-title">Public & System</div>
+            <div class="module-subtitle">Landing, pricing, billing and i18n</div>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>Landing page <span class="route">/</span></li>
+          <li>Pricing page <span class="route">/pricing</span></li>
+          <li>Payment / checkout <span class="route">/payment</span></li>
+          <li>Bilingual UI: English / ລາວ (Lao)</li>
+          <li>Theme provider (light / dark / system)</li>
+          <li>Protected routes with role guards</li>
+          <li>Global toast & notification system</li>
+          <li>404 / Not-found handler</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Roles -->
+    <div class="section">
+      <h2>👥 User Roles & Permissions</h2>
+      <p class="section-desc">Access to features is gated by role using <code>ProtectedRoute</code>.</p>
+      <div class="roles-grid">
+        <div class="role-card super">
+          <h3>Super Admin</h3>
+          <p>Full system access including service-package configuration, customers and quotations.</p>
+        </div>
+        <div class="role-card administrator">
+          <h3>Administrator</h3>
+          <p>Organisation-wide management: roles, users, customers, quotations and reports.</p>
+        </div>
+        <div class="role-card admin">
+          <h3>Admin</h3>
+          <p>Manages business info, departments, units, document types and standard users.</p>
+        </div>
+        <div class="role-card user">
+          <h3>User</h3>
+          <p>Uploads, signs, tracks and downloads their own documents; views personal dashboard.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workflow -->
+    <div class="section">
+      <h2>🔄 Core Document Workflow</h2>
+      <p class="section-desc">The primary lifecycle of a document inside DocuFlow.</p>
+      <div class="workflow">
+        <div class="step">📤 Upload</div>
+        <div class="arrow">→</div>
+        <div class="step">👥 Assign Signers</div>
+        <div class="arrow">→</div>
+        <div class="step">⏳ Pending / Waiting</div>
+        <div class="arrow">→</div>
+        <div class="step">✍️ Sign (Internal / External)</div>
+        <div class="arrow">→</div>
+        <div class="step">✅ Completed</div>
+        <div class="arrow">→</div>
+        <div class="step">📥 Download / Archive</div>
+      </div>
+    </div>
+
+    <!-- Document Statuses -->
+    <div class="section">
+      <h2>🏷️ Document Status Reference</h2>
+      <p class="section-desc">Statuses used throughout the dashboard, lists and reports.</p>
+      <div class="status-grid">
+        <div class="status-item">
+          <div class="status-dot" style="background:#9ca3af;"></div>
+          <div>
+            <span class="label">Draft</span>
+            <span class="desc">Uploaded but not yet routed</span>
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-dot" style="background:#f59e0b;"></div>
+          <div>
+            <span class="label">Pending</span>
+            <span class="desc">Awaiting signer action</span>
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-dot" style="background:#3b82f6;"></div>
+          <div>
+            <span class="label">In Progress</span>
+            <span class="desc">Partially signed</span>
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-dot" style="background:#10b981;"></div>
+          <div>
+            <span class="label">Completed</span>
+            <span class="desc">All signers signed</span>
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-dot" style="background:#ef4444;"></div>
+          <div>
+            <span class="label">Cancelled</span>
+            <span class="desc">Workflow cancelled</span>
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-dot" style="background:#8b5cf6;"></div>
+          <div>
+            <span class="label">Expired</span>
+            <span class="desc">Past expiration date</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture -->
+    <div class="section">
+      <h2>🏗️ Architecture Overview</h2>
+      <p class="section-desc">Clean-architecture layering used in the codebase.</p>
+      <div class="roles-grid">
+        <div class="role-card user">
+          <h3>Presentation</h3>
+          <p>Pages, feature components, hooks, layout, routing — React + shadcn/ui.</p>
+        </div>
+        <div class="role-card admin">
+          <h3>Application</h3>
+          <p>Use cases, DTOs, ports (interfaces) orchestrating domain logic.</p>
+        </div>
+        <div class="role-card administrator">
+          <h3>Domain</h3>
+          <p>Entities, value objects and domain services — pure business rules.</p>
+        </div>
+        <div class="role-card super">
+          <h3>Infrastructure</h3>
+          <p>API repositories, mock repositories, config and external integrations.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>DocuFlow Web — Overall Functional Map · Generated 2026-05-18</p>
+    </footer>
+  </div>
+</body>
+</html>

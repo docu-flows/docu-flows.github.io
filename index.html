@@ -7,7 +7,7 @@
   <meta name="description" content="DocuFlow builds next-generation document, ERP, POS, Inventory, Budget, Security and IoT platforms for Southeast Asia — engineered in Laos, scaling across the region." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Lao:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/jpeg" href="assets/full-logo.jpg" />
   <link rel="apple-touch-icon" href="assets/full-logo.jpg" />
   <link rel="stylesheet" href="styles.css" />
@@ -24,13 +24,19 @@
         <span class="logo-text">DocuFlow</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="#solutions">Solutions</a>
-        <a href="#products">Products</a>
-        <a href="#industries">Industries</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#solutions" data-i18n="nav.solutions">Solutions</a>
+        <a href="#products" data-i18n="nav.products">Products</a>
+        <a href="#workflow" data-i18n="nav.workflow">Workflow</a>
+        <a href="#industries" data-i18n="nav.industries">Industries</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
-      <a href="#contact" class="btn btn-primary nav-cta">Get a Demo</a>
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+        <button class="lang-btn" data-lang="lo" aria-label="ລາວ" lang="lo">ລາວ</button>
+        <button class="lang-btn" data-lang="zh" aria-label="中文" lang="zh">中文</button>
+      </div>
+      <a href="#contact" class="btn btn-primary nav-cta" data-i18n="nav.cta">Get a Demo</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -43,25 +49,25 @@
       <div class="hero-content">
         <span class="eyebrow">
           <span class="dot"></span>
-          The Future of Document Flow in SEA
+          <span data-i18n="hero.eyebrow">The Future of Document Flow in SEA</span>
         </span>
-        <h1 class="hero-title">
+        <h1 class="hero-title" data-i18n-html="hero.title">
           Move documents at the
           <span class="gradient-text">speed of business.</span>
         </h1>
-        <p class="hero-sub">
+        <p class="hero-sub" data-i18n="hero.sub">
           DocuFlow engineers next-generation document, ERP, POS, Inventory,
           Budget, Security and IoT platforms — helping organizations across
           Southeast Asia run smarter, safer and faster.
         </p>
         <div class="hero-cta">
-          <a href="#products" class="btn btn-primary">Explore Products →</a>
-          <a href="#contact" class="btn btn-ghost">Talk to Sales</a>
+          <a href="#products" class="btn btn-primary" data-i18n="hero.cta1">Explore Products →</a>
+          <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta2">Talk to Sales</a>
         </div>
         <div class="hero-stats">
-          <div><strong>120+</strong><span>Enterprise deployments</span></div>
-          <div><strong>15+</strong><span>Industries served</span></div>
-          <div><strong>99.9%</strong><span>Platform uptime</span></div>
+          <div><strong>120+</strong><span data-i18n="hero.stat1">Enterprise deployments</span></div>
+          <div><strong>15+</strong><span data-i18n="hero.stat2">Industries served</span></div>
+          <div><strong>99.9%</strong><span data-i18n="hero.stat3">Platform uptime</span></div>
         </div>
       </div>
 
@@ -106,10 +112,10 @@
   <!-- Trust strip -->
   <section class="trust">
     <div class="container">
-      <p class="trust-label">Powering operations across Southeast Asia — from retail floors to factory lines</p>
+      <p class="trust-label" data-i18n="trust.label">Powering operations across Southeast Asia — from retail floors to factory lines</p>
       <div class="trust-logos">
-        <span>RETAIL</span><span>HOSPITALITY</span><span>MANUFACTURING</span>
-        <span>LOGISTICS</span><span>GOVERNMENT</span><span>FINANCE</span>
+        <span data-i18n="trust.retail">RETAIL</span><span data-i18n="trust.hospitality">HOSPITALITY</span><span data-i18n="trust.manufacturing">MANUFACTURING</span>
+        <span data-i18n="trust.logistics">LOGISTICS</span><span data-i18n="trust.government">GOVERNMENT</span><span data-i18n="trust.finance">FINANCE</span>
       </div>
     </div>
   </section>
@@ -118,9 +124,9 @@
   <section id="solutions" class="section">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow eyebrow-center">Our Solutions</span>
-        <h2>One platform. <span class="gradient-text">Every workflow.</span></h2>
-        <p>From front-of-house transactions to back-office finance and edge-device monitoring — DocuFlow covers the full enterprise stack.</p>
+        <span class="eyebrow eyebrow-center" data-i18n="solutions.eyebrow">Our Solutions</span>
+        <h2 data-i18n-html="solutions.title">One platform. <span class="gradient-text">Every workflow.</span></h2>
+        <p data-i18n="solutions.sub">From front-of-house transactions to back-office finance and edge-device monitoring — DocuFlow covers the full enterprise stack.</p>
       </div>
 
       <div class="solutions-grid">
@@ -128,56 +134,56 @@
           <div class="solution-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
           </div>
-          <h3>ERP</h3>
-          <p>Unified finance, HR, sales and operations — built for Lao-language workflows and local tax compliance.</p>
+          <h3 data-i18n="sol.erp.title">ERP</h3>
+          <p data-i18n="sol.erp.desc">Unified finance, HR, sales and operations — built for Lao-language workflows and local tax compliance.</p>
         </article>
 
         <article class="solution">
           <div class="solution-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></svg>
           </div>
-          <h3>POS</h3>
-          <p>Lightning-fast point-of-sale for retail, F&B and franchises. Works online and offline, syncs everywhere.</p>
+          <h3 data-i18n="sol.pos.title">POS</h3>
+          <p data-i18n="sol.pos.desc">Lightning-fast point-of-sale for retail, F&B and franchises. Works online and offline, syncs everywhere.</p>
         </article>
 
         <article class="solution">
           <div class="solution-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>
           </div>
-          <h3>Inventory</h3>
-          <p>Real-time stock visibility across warehouses, branches and shelves — with barcode and RFID support.</p>
+          <h3 data-i18n="sol.inv.title">Inventory</h3>
+          <p data-i18n="sol.inv.desc">Real-time stock visibility across warehouses, branches and shelves — with barcode and RFID support.</p>
         </article>
 
         <article class="solution">
           <div class="solution-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h12"/><circle cx="19" cy="18" r="2"/></svg>
           </div>
-          <h3>Purchase</h3>
-          <p>Procure-to-pay automation: RFQs, approvals, vendor scoring and GR/IR matching in one flow.</p>
+          <h3 data-i18n="sol.pur.title">Purchase</h3>
+          <p data-i18n="sol.pur.desc">Procure-to-pay automation: RFQs, approvals, vendor scoring and GR/IR matching in one flow.</p>
         </article>
 
         <article class="solution">
           <div class="solution-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
           </div>
-          <h3>Budget</h3>
-          <p>Plan, forecast and track budgets with rolling scenarios, variance alerts and multi-currency support.</p>
+          <h3 data-i18n="sol.bud.title">Budget</h3>
+          <p data-i18n="sol.bud.desc">Plan, forecast and track budgets with rolling scenarios, variance alerts and multi-currency support.</p>
         </article>
 
         <article class="solution">
           <div class="solution-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
           </div>
-          <h3>Security</h3>
-          <p>Identity, access, audit logs and CCTV/VMS integration — engineered to meet enterprise compliance.</p>
+          <h3 data-i18n="sol.sec.title">Security</h3>
+          <p data-i18n="sol.sec.desc">Identity, access, audit logs and CCTV/VMS integration — engineered to meet enterprise compliance.</p>
         </article>
 
         <article class="solution solution-wide">
           <div class="solution-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 017 0M5.5 5.5a9 9 0 0113 0M12 14v6"/></svg>
           </div>
-          <h3>IoT Platform</h3>
-          <p>Connect sensors, gateways and machines. Stream telemetry, trigger automations and visualize the physical world in real time.</p>
+          <h3 data-i18n="sol.iot.title">IoT Platform</h3>
+          <p data-i18n="sol.iot.desc">Connect sensors, gateways and machines. Stream telemetry, trigger automations and visualize the physical world in real time.</p>
         </article>
       </div>
     </div>
@@ -187,40 +193,70 @@
   <section id="products" class="section section-alt">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow eyebrow-center">Flagship Products</span>
-        <h2>Software engineered for <span class="gradient-text">Southeast Asia.</span></h2>
-        <p>Two flagship platforms purpose-built for the way modern SEA businesses operate today.</p>
+        <span class="eyebrow eyebrow-center" data-i18n="products.eyebrow">Flagship Products</span>
+        <h2 data-i18n-html="products.title">Software engineered for <span class="gradient-text">Southeast Asia.</span></h2>
+        <p data-i18n="products.sub">Two flagship platforms purpose-built for the way modern SEA businesses operate today.</p>
       </div>
 
       <div class="products-grid">
-        <!-- docuFlow -->
+        <!-- DocuFlow Platform -->
         <article class="product">
-          <div class="product-badge">Online Document Tools</div>
-          <h3 class="product-title">Docu<span class="gradient-text">Flow</span> Tools</h3>
-          <p class="product-tagline">PDF tools that actually speak Lao — free, unlimited, no upgrade nag.</p>
-          <p>
-            Other PDF converters break on Lao text and cap you at 2–3 files a day.
-            DocuFlow Tools converts PDFs to Word with <strong>perfect Lao rendering</strong>,
-            preserves tables, images and layout, and runs entirely in your browser.
+          <div class="product-badge" data-i18n="prod.docu.badge">Document Workflow + E-Signature</div>
+          <h3 class="product-title">Docu<span class="gradient-text">Flow</span></h3>
+          <p class="product-tagline" data-i18n="prod.docu.tagline">The document workflow platform with built-in e-signature.</p>
+          <p data-i18n-html="prod.docu.desc">
+            DocuFlow runs the whole lifecycle of a document — <strong>upload, assign signers,
+            route, e-sign, complete, archive</strong> — in one auditable flow. Internal teams
+            and external counterparties sign side-by-side from the same workflow, with
+            real-time status, role-based access and a bilingual interface in English and ລາວ.
           </p>
+
+          <div class="workflow-strip" aria-hidden="true">
+            <span class="wf-step" data-i18n="wf.s1.t">Upload</span>
+            <span class="wf-arrow">→</span>
+            <span class="wf-step" data-i18n="wf.s2.t">Assign signers</span>
+            <span class="wf-arrow">→</span>
+            <span class="wf-step" data-i18n="wf.s3.t">Pending</span>
+            <span class="wf-arrow">→</span>
+            <span class="wf-step" data-i18n="wf.s4.t">E-sign</span>
+            <span class="wf-arrow">→</span>
+            <span class="wf-step" data-i18n="wf.s5.t">Completed</span>
+            <span class="wf-arrow">→</span>
+            <span class="wf-step" data-i18n="wf.s6.t">Archive</span>
+          </div>
+
+          <div class="module-grid">
+            <span data-i18n="prod.docu.m1">Multi-Signer Routing</span>
+            <span data-i18n="prod.docu.m2">Signer Ordering</span>
+            <span data-i18n="prod.docu.m3">External Signer Links</span>
+            <span data-i18n="prod.docu.m4">E-Signature on PDF</span>
+            <span data-i18n="prod.docu.m5">Status &amp; Audit Trail</span>
+            <span data-i18n="prod.docu.m6">2FA &amp; Role Access</span>
+            <span data-i18n="prod.docu.m7">Customer Directory</span>
+            <span data-i18n="prod.docu.m8">Quotation Module</span>
+            <span data-i18n="prod.docu.m9">Bilingual EN / ລາວ</span>
+          </div>
+
           <ul class="product-features">
-            <li>PDF → Word with full Lao language support</li>
-            <li>Preserves tables, images &amp; original layout</li>
-            <li>AI-powered translation with e-signature</li>
-            <li>Unlimited conversions — free forever, no limits</li>
+            <li data-i18n="prod.docu.f1">End-to-end document workflow — every step tracked, every action logged</li>
+            <li data-i18n="prod.docu.f2">Internal &amp; external e-signing — external signers need no account</li>
+            <li data-i18n="prod.docu.f3">Multi-signer ordering with live status (draft, pending, completed, cancelled, expired)</li>
+            <li data-i18n="prod.docu.f4">Tamper-evident signed PDFs with full audit trail</li>
+            <li data-i18n="prod.docu.f5">Role-based access: Super Admin / Admin / User, gated per route</li>
           </ul>
+
           <div class="product-cta-row">
-            <a href="https://pdf2word.docu-flows.com" target="_blank" rel="noopener" class="btn btn-primary">Try pdf2word.docu-flows.com →</a>
-            <a href="#contact" class="btn btn-outline">Talk to us</a>
+            <a href="#contact" class="btn btn-primary" data-i18n="prod.docu.cta1">Request a DocuFlow demo →</a>
+            <a href="https://pdf2word.docu-flows.com" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="prod.docu.cta2">Free PDF tools →</a>
           </div>
         </article>
 
         <!-- FlowBiz -->
         <article class="product product-featured">
-          <div class="product-badge">All-in-One Business Suite</div>
+          <div class="product-badge" data-i18n="prod.fb.badge">All-in-One Business Suite</div>
           <h3 class="product-title">Flow<span class="gradient-text">Biz</span></h3>
-          <p class="product-tagline">11 integrated modules. One platform. Run the whole business.</p>
-          <p>
+          <p class="product-tagline" data-i18n="prod.fb.tagline">11 integrated modules. One platform. Run the whole business.</p>
+          <p data-i18n="prod.fb.desc">
             FlowBiz unifies Sales, Purchasing, POS, Inventory, Accounting, HR,
             Payroll, Fixed Assets, Projects, Document In-Out and Reports —
             with multi-language (EN/LO/ZH), multi-currency (LAK/THB/USD) and
@@ -228,48 +264,92 @@
           </p>
 
           <div class="module-grid">
-            <span>Core &amp; Security</span>
-            <span>Sales &amp; AR</span>
-            <span>Purchasing &amp; AP</span>
-            <span>Inventory &amp; Stock</span>
-            <span>POS</span>
-            <span>Accounting</span>
-            <span>Fixed Assets</span>
-            <span>HR &amp; Payroll</span>
-            <span>Projects</span>
-            <span>Document In-Out</span>
-            <span>Reports &amp; Analytics</span>
-            <span>Approval Engine</span>
+            <span data-i18n="prod.fb.m1">Core &amp; Security</span>
+            <span data-i18n="prod.fb.m2">Sales &amp; AR</span>
+            <span data-i18n="prod.fb.m3">Purchasing &amp; AP</span>
+            <span data-i18n="prod.fb.m4">Inventory &amp; Stock</span>
+            <span data-i18n="prod.fb.m5">POS</span>
+            <span data-i18n="prod.fb.m6">Accounting</span>
+            <span data-i18n="prod.fb.m7">Fixed Assets</span>
+            <span data-i18n="prod.fb.m8">HR &amp; Payroll</span>
+            <span data-i18n="prod.fb.m9">Projects</span>
+            <span data-i18n="prod.fb.m10">Document In-Out</span>
+            <span data-i18n="prod.fb.m11">Reports &amp; Analytics</span>
+            <span data-i18n="prod.fb.m12">Approval Engine</span>
           </div>
 
           <ul class="product-features">
-            <li>Multi-language EN / ລາວ / 中文 — built in</li>
-            <li>Multi-currency LAK / THB / USD with daily rates</li>
-            <li>QR-verified PDF approvals &amp; digital signatures</li>
-            <li>Perpetual license — on-premise or cloud</li>
+            <li data-i18n="prod.fb.f1">Multi-language EN / ລາວ / 中文 — built in</li>
+            <li data-i18n="prod.fb.f2">Multi-currency LAK / THB / USD with daily rates</li>
+            <li data-i18n="prod.fb.f3">QR-verified PDF approvals &amp; digital signatures</li>
+            <li data-i18n="prod.fb.f4">Perpetual license — on-premise or cloud</li>
           </ul>
 
           <div class="package-strip">
             <div class="pkg-mini">
-              <h5>Starter</h5>
+              <h5 data-i18n="prod.fb.pkg1.t">Starter</h5>
               <strong>$2,850</strong>
-              <small>Core + Sales</small>
+              <small data-i18n="prod.fb.pkg1.d">Core + Sales</small>
             </div>
             <div class="pkg-mini pkg-mini-featured">
-              <h5>Business</h5>
+              <h5 data-i18n="prod.fb.pkg2.t">Business</h5>
               <strong>$5,500</strong>
-              <small>Most popular</small>
+              <small data-i18n="prod.fb.pkg2.d">Most popular</small>
             </div>
             <div class="pkg-mini">
-              <h5>Enterprise</h5>
+              <h5 data-i18n="prod.fb.pkg3.t">Enterprise</h5>
               <strong>$7,750</strong>
-              <small>All 11 modules</small>
+              <small data-i18n="prod.fb.pkg3.d">All 11 modules</small>
             </div>
           </div>
 
-          <a href="#contact" class="btn btn-primary">Request a FlowBiz demo →</a>
+          <a href="#contact" class="btn btn-primary" data-i18n="prod.fb.cta">Request a FlowBiz demo →</a>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section id="workflow" class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow eyebrow-center" data-i18n="wf.eyebrow">How DocuFlow works</span>
+        <h2 data-i18n-html="wf.title">From upload to <span class="gradient-text">signed and archived.</span></h2>
+        <p data-i18n="wf.sub">Every document moves through the same auditable lifecycle — six steps, full visibility for every signer, every status logged.</p>
+      </div>
+
+      <ol class="workflow-grid">
+        <li class="wf-card">
+          <span class="wf-num">1</span>
+          <h4 data-i18n="wf.s1.t">Upload</h4>
+          <p data-i18n="wf.s1.d">Drop in a PDF, tag it with document type and metadata.</p>
+        </li>
+        <li class="wf-card">
+          <span class="wf-num">2</span>
+          <h4 data-i18n="wf.s2.t">Assign signers</h4>
+          <p data-i18n="wf.s2.d">Add internal users or external email links — in signing order.</p>
+        </li>
+        <li class="wf-card">
+          <span class="wf-num">3</span>
+          <h4 data-i18n="wf.s3.t">Pending</h4>
+          <p data-i18n="wf.s3.d">Each signer is notified. Status updates live as they act.</p>
+        </li>
+        <li class="wf-card">
+          <span class="wf-num">4</span>
+          <h4 data-i18n="wf.s4.t">E-sign</h4>
+          <p data-i18n="wf.s4.d">Internal users sign in-app. External signers use a secure link — no account needed.</p>
+        </li>
+        <li class="wf-card">
+          <span class="wf-num">5</span>
+          <h4 data-i18n="wf.s5.t">Completed</h4>
+          <p data-i18n="wf.s5.d">A tamper-evident signed PDF is generated and distributed automatically.</p>
+        </li>
+        <li class="wf-card">
+          <span class="wf-num">6</span>
+          <h4 data-i18n="wf.s6.t">Archive</h4>
+          <p data-i18n="wf.s6.d">Signed document plus full audit trail retained and searchable.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -277,39 +357,39 @@
   <section id="industries" class="section">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow eyebrow-center">Industries</span>
-        <h2>Tailored for the way <span class="gradient-text">you work.</span></h2>
+        <span class="eyebrow eyebrow-center" data-i18n="ind.eyebrow">Industries</span>
+        <h2 data-i18n-html="ind.title">Tailored for the way <span class="gradient-text">you work.</span></h2>
       </div>
       <div class="industries-grid">
         <div class="industry">
           <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg></div>
-          <h4>Retail &amp; F&amp;B</h4>
-          <p>POS, loyalty, kitchen displays.</p>
+          <h4 data-i18n="ind.retail.t">Retail &amp; F&amp;B</h4>
+          <p data-i18n="ind.retail.d">POS, loyalty, kitchen displays.</p>
         </div>
         <div class="industry">
           <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l6 3V9l6 3V9l6 3v9"/><path d="M3 21h18"/><path d="M9 21v-4M15 21v-4"/></svg></div>
-          <h4>Manufacturing</h4>
-          <p>MES, MRP and IoT line monitoring.</p>
+          <h4 data-i18n="ind.mfg.t">Manufacturing</h4>
+          <p data-i18n="ind.mfg.d">MES, MRP and IoT line monitoring.</p>
         </div>
         <div class="industry">
           <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
-          <h4>Logistics</h4>
-          <p>Fleet, warehouse and last-mile.</p>
+          <h4 data-i18n="ind.log.t">Logistics</h4>
+          <p data-i18n="ind.log.d">Fleet, warehouse and last-mile.</p>
         </div>
         <div class="industry">
           <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9M19 10v9M9 10v9M15 10v9"/><path d="M3 20h18"/></svg></div>
-          <h4>Government</h4>
-          <p>Secure document &amp; budget workflows.</p>
+          <h4 data-i18n="ind.gov.t">Government</h4>
+          <p data-i18n="ind.gov.d">Secure document &amp; budget workflows.</p>
         </div>
         <div class="industry">
           <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h3M14 15h3"/></svg></div>
-          <h4>Finance</h4>
-          <p>Audit-grade ERP and reporting.</p>
+          <h4 data-i18n="ind.fin.t">Finance</h4>
+          <p data-i18n="ind.fin.d">Audit-grade ERP and reporting.</p>
         </div>
         <div class="industry">
           <div class="industry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V8l9-4 9 4v12"/><path d="M3 20h18"/><path d="M9 12h6M9 16h6"/></svg></div>
-          <h4>Hospitality</h4>
-          <p>PMS, POS and guest experience.</p>
+          <h4 data-i18n="ind.hos.t">Hospitality</h4>
+          <p data-i18n="ind.hos.d">PMS, POS and guest experience.</p>
         </div>
       </div>
     </div>
@@ -319,8 +399,8 @@
   <section id="about" class="section section-alt">
     <div class="container about-grid">
       <div>
-        <span class="eyebrow">About DocuFlow</span>
-        <h2>Engineering Southeast Asia's <span class="gradient-text">digital future.</span></h2>
+        <span class="eyebrow" data-i18n="about.eyebrow">About DocuFlow</span>
+        <h2 data-i18n-html="about.title">Engineering Southeast Asia's <span class="gradient-text">digital future.</span></h2>
         <p>
           Headquartered in Vientiane, DocuFlow is a leading enterprise software
           company empowering organizations across Southeast Asia with world-class
@@ -335,22 +415,22 @@
           <div class="value">
             <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
             <div class="value-body">
-              <h4>Innovation first</h4>
-              <p>Modern stacks, AI-assisted features and cloud-native architecture.</p>
+              <h4 data-i18n="val.inn.t">Innovation first</h4>
+              <p data-i18n="val.inn.d">Modern stacks, AI-assisted features and cloud-native architecture.</p>
             </div>
           </div>
           <div class="value">
             <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div>
             <div class="value-body">
-              <h4>Built for SEA</h4>
-              <p>Multi-language UX, multi-currency, regional tax &amp; banking integrations.</p>
+              <h4 data-i18n="val.sea.t">Built for SEA</h4>
+              <p data-i18n="val.sea.d">Multi-language UX, multi-currency, regional tax &amp; banking integrations.</p>
             </div>
           </div>
           <div class="value">
             <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
             <div class="value-body">
-              <h4>Enterprise-grade</h4>
-              <p>Security, compliance and 24/7 support for mission-critical operations.</p>
+              <h4 data-i18n="val.ent.t">Enterprise-grade</h4>
+              <p data-i18n="val.ent.d">Security, compliance and 24/7 support for mission-critical operations.</p>
             </div>
           </div>
         </div>
@@ -368,71 +448,71 @@
   <section id="contact" class="section">
     <div class="container contact-wrap">
       <div class="contact-card">
-        <span class="eyebrow">Get in touch</span>
-        <h2>Let's build your <span class="gradient-text">document flow.</span></h2>
-        <p>Schedule a discovery call with our team. We'll map your workflow and propose the right DocuFlow stack — usually within 48 hours.</p>
+        <span class="eyebrow" data-i18n="contact.eyebrow">Get in touch</span>
+        <h2 data-i18n-html="contact.title">Let's build your <span class="gradient-text">document flow.</span></h2>
+        <p data-i18n="contact.sub">Schedule a discovery call with our team. We'll map your workflow and propose the right DocuFlow stack — usually within 48 hours.</p>
         <form class="contact-form" id="contactForm" novalidate>
           <div class="field-row">
             <div class="field">
-              <label for="name">Full name</label>
-              <input id="name" name="name" type="text" placeholder="Your name" required />
+              <label for="name" data-i18n="form.name">Full name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" data-i18n-ph="form.name.ph" required />
             </div>
             <div class="field">
-              <label for="company">Company</label>
-              <input id="company" name="company" type="text" placeholder="Company name" />
+              <label for="company" data-i18n="form.company">Company</label>
+              <input id="company" name="company" type="text" placeholder="Company name" data-i18n-ph="form.company.ph" />
             </div>
           </div>
           <div class="field-row">
             <div class="field">
-              <label for="email">Work email</label>
+              <label for="email" data-i18n="form.email">Work email</label>
               <input id="email" name="email" type="email" placeholder="you@company.com" required />
             </div>
             <div class="field">
-              <label for="interest">Interested in</label>
+              <label for="interest" data-i18n="form.interest">Interested in</label>
               <select id="interest" name="interest">
-                <option>FlowBiz (ERP / POS / Inventory)</option>
-                <option>docuFlow (Document Workflow)</option>
-                <option>IoT &amp; Security</option>
-                <option>Custom solution</option>
+                <option data-i18n="form.opt1">FlowBiz (ERP / POS / Inventory)</option>
+                <option data-i18n="form.opt2">docuFlow (Document Workflow)</option>
+                <option data-i18n="form.opt3">IoT &amp; Security</option>
+                <option data-i18n="form.opt4">Custom solution</option>
               </select>
             </div>
           </div>
           <div class="field">
-            <label for="message">Tell us about your project</label>
-            <textarea id="message" name="message" rows="4" placeholder="A short description of what you'd like to achieve…"></textarea>
+            <label for="message" data-i18n="form.message">Tell us about your project</label>
+            <textarea id="message" name="message" rows="4" placeholder="A short description of what you'd like to achieve…" data-i18n-ph="form.message.ph"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Send message →</button>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="form.submit">Send message →</button>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </div>
 
       <aside class="contact-side">
         <div class="contact-item">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-7-7-7-13a7 7 0 0114 0c0 6-7 13-7 13z"/><circle cx="12" cy="9" r="2.5"/></svg> Office</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-7-7-7-13a7 7 0 0114 0c0 6-7 13-7 13z"/><circle cx="12" cy="9" r="2.5"/></svg> <span data-i18n="ci.office">Office</span></h4>
           <p lang="lo">ບ້ານໂພນພະເນົາ ເຮືອນເລກທີ 075, ໜ່ວຍ 05, ເມືອງໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ</p>
           <p class="contact-sub">Phonephanao village, House No. 075, Unit 05, Saysettha District, Vientiane Capital</p>
         </div>
         <div class="contact-item">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> Email</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> <span data-i18n="ci.email">Email</span></h4>
           <p><a href="mailto:docuflowslaos@gmail.com">docuflowslaos@gmail.com</a></p>
         </div>
         <div class="contact-item">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg> Phone</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg> <span data-i18n="ci.phone">Phone</span></h4>
           <p>
             <a href="tel:+8562096999666">+856 20 96 999 666</a><br />
             <a href="tel:+8562022221382">+856 20 2222 1382</a>
           </p>
         </div>
         <div class="contact-item">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> WhatsApp</h4>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> <span>WhatsApp</span></h4>
           <p>
             <a href="https://wa.me/8562096999666" target="_blank" rel="noopener">+856 20 96 999 666</a><br />
             <a href="https://wa.me/8562022221382" target="_blank" rel="noopener">+856 20 2222 1382</a>
           </p>
         </div>
         <div class="contact-item">
-          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Hours</h4>
-          <p>Mon – Fri · 08:30 – 17:30 (ICT)</p>
+          <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> <span data-i18n="ci.hours">Hours</span></h4>
+          <p data-i18n="ci.hoursVal">Mon – Fri · 08:30 – 17:30 (ICT)</p>
         </div>
       </aside>
     </div>
@@ -449,30 +529,30 @@
           </svg>
           <span class="logo-text">DocuFlow</span>
         </a>
-        <p class="footer-tag">The Future of Document Flow in SEA — engineered in Laos, scaling across Southeast Asia.</p>
+        <p class="footer-tag" data-i18n="footer.tag">The Future of Document Flow in SEA — engineered in Laos, scaling across Southeast Asia.</p>
       </div>
       <div class="footer-cols">
         <div>
-          <h5>Products</h5>
+          <h5 data-i18n="footer.products">Products</h5>
           <a href="#products">FlowBiz</a>
-          <a href="#products">docuFlow</a>
+          <a href="#products">DocuFlow</a>
         </div>
         <div>
-          <h5>Solutions</h5>
-          <a href="#solutions">ERP &amp; POS</a>
-          <a href="#solutions">Inventory</a>
-          <a href="#solutions">IoT &amp; Security</a>
+          <h5 data-i18n="footer.solutions">Solutions</h5>
+          <a href="#solutions" data-i18n="footer.erpPos">ERP &amp; POS</a>
+          <a href="#solutions" data-i18n="footer.inv">Inventory</a>
+          <a href="#solutions" data-i18n="footer.iotSec">IoT &amp; Security</a>
         </div>
         <div>
-          <h5>Company</h5>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <h5 data-i18n="footer.company">Company</h5>
+          <a href="#about" data-i18n="footer.about">About</a>
+          <a href="#contact" data-i18n="footer.contact">Contact</a>
         </div>
       </div>
     </div>
     <div class="container footer-bottom">
-      <span>© <span id="year"></span> DocuFlow Co., Ltd. All rights reserved.</span>
-      <span>Made with ❤ in Vientiane</span>
+      <span><span data-i18n="footer.copy">© </span><span id="year"></span><span data-i18n="footer.rights"> DocuFlow Co., Ltd. All rights reserved.</span></span>
+      <span data-i18n="footer.made">Made with ❤ in Vientiane</span>
     </div>
   </footer>
 
