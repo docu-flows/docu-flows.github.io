@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inifity — Sales Quotation / ໃບສະເໜີລາຄາ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Noto Sans Lao', -apple-system, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+    line-height: 1.5;
+    padding: 30px 20px;
+  }
+  .page {
+    max-width: 960px;
+    margin: 0 auto 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    padding: 50px 60px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 3px solid #3b82f6;
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+  }
+  .brand h1 {
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+  .brand .tagline { font-size: 13px; color: #64748b; font-weight: 500; }
+  .doc-meta { text-align: right; font-size: 13px; color: #475569; }
+  .doc-meta .title { font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  .doc-meta .lao { font-size: 14px; color: #64748b; }
+
+  /* Sections */
+  h2.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    background: linear-gradient(90deg, #eff6ff, transparent);
+    padding: 10px 14px;
+    border-left: 4px solid #3b82f6;
+    border-radius: 4px;
+    margin: 28px 0 14px;
+  }
+  h2.section-title .lao { font-size: 14px; color: #64748b; font-weight: 500; margin-left: 8px; }
+  .note {
+    font-size: 12px;
+    color: #64748b;
+    font-style: italic;
+    margin: -8px 0 12px;
+  }
+
+  /* Customer box */
+  .customer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 30px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 18px 22px;
+    font-size: 13px;
+  }
+  .customer-grid .row { display: flex; gap: 8px; }
+  .customer-grid .label { color: #64748b; font-weight: 500; min-width: 110px; }
+  .customer-grid .field { color: #0f172a; border-bottom: 1px dotted #cbd5e1; flex: 1; min-height: 18px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-bottom: 6px;
+  }
+  thead th {
+    background: #1e293b;
+    color: #f1f5f9;
+    text-align: left;
+    padding: 9px 12px;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  thead th:last-child { text-align: right; }
+  tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tbody td:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  tbody tr:hover { background: #f8fafc; }
+  .num { width: 36px; color: #94a3b8; font-weight: 600; }
+  .price { font-weight: 700; color: #0f172a; }
+  .module-name { font-weight: 600; color: #0f172a; }
+  .module-name .lao { display: block; font-weight: 500; color: #64748b; font-size: 12px; margin-top: 2px; }
+  .includes { color: #475569; font-size: 12px; }
+  .includes .lao { display: block; color: #94a3b8; font-size: 11.5px; margin-top: 3px; }
+
+  tfoot td, tr.subtotal td {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 13px;
+  }
+
+  /* Summary */
+  .summary {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #f1f5f9;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .summary h3 { font-size: 16px; margin-bottom: 14px; color: #f1f5f9; }
+  .summary table { font-size: 13px; }
+  .summary thead th { background: rgba(255,255,255,0.08); color: #e2e8f0; }
+  .summary tbody td { color: #cbd5e1; border-color: rgba(255,255,255,0.1); }
+  .summary tbody tr:hover { background: rgba(255,255,255,0.05); }
+  .summary .total-row td {
+    background: #3b82f6;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  /* Packages */
+  .packages {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0 20px;
+  }
+  .pkg {
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    background: #fff;
+  }
+  .pkg.featured { border-color: #3b82f6; background: linear-gradient(135deg, #eff6ff, #fff); }
+  .pkg .name { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+  .pkg .lao { font-size: 11px; color: #64748b; margin-bottom: 8px; }
+  .pkg .price { font-size: 22px; font-weight: 800; color: #3b82f6; }
+  .pkg .strike { font-size: 12px; color: #94a3b8; text-decoration: line-through; margin-left: 6px; }
+  .pkg .desc { font-size: 11px; color: #64748b; margin-top: 6px; line-height: 1.4; }
+
+  /* Terms */
+  .terms {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    border-radius: 4px;
+    padding: 16px 20px;
+    font-size: 12px;
+    color: #78350f;
+  }
+  .terms ol { margin-left: 18px; }
+  .terms li { margin-bottom: 6px; line-height: 1.5; }
+  .terms li strong { color: #422006; }
+
+  /* Signature */
+  .signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .sig-box { border-top: 1px solid #cbd5e1; padding-top: 12px; }
+  .sig-box h4 { font-size: 13px; color: #1e293b; margin-bottom: 14px; }
+  .sig-line { font-size: 12px; color: #475569; margin-bottom: 14px; display: flex; gap: 10px; }
+  .sig-line .label { min-width: 90px; color: #64748b; }
+  .sig-line .field { flex: 1; border-bottom: 1px dotted #cbd5e1; min-height: 16px; }
+
+  /* Footer */
+  .footer {
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 11px;
+    color: #94a3b8;
+    letter-spacing: 1px;
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; max-width: 100%; margin: 0; padding: 24px 28px; border-radius: 0; }
+    h2.section-title { page-break-after: avoid; }
+    table { page-break-inside: avoid; }
+    .summary { page-break-inside: avoid; }
+    .pkg, .terms, .signatures { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">
+      <h1>Infinity</h1>
+      <div class="tagline">All-in-One Business Management Platform</div>
+    </div>
+    <div class="doc-meta">
+      <div class="title">SALES QUOTATION</div>
+      <div class="lao">ໃບສະເໜີລາຄາ</div>
+      <div style="margin-top:10px;">No. / ເລກທີ່: <strong>Q-___________</strong></div>
+      <div>Date / ວັນທີ: ____ / ____ / ______</div>
+      <div>Valid: 30 days / ໃຊ້ໄດ້ 30 ວັນ</div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER -->
+  <h2 class="section-title">Customer Information <span class="lao">/ ຂໍ້ມູນລູກຄ້າ</span></h2>
+  <div class="customer-grid">
+    <div class="row"><span class="label">Company / ບໍລິສັດ:</span><span class="field"></span></div>
+    <div class="row"><span class="label">Contact / ຜູ້ຕິດຕໍ່:</span><span class="field"></span></div>
+    <div class="row"><span class="label">Phone / ໂທ:</span><span class="field"></span></div>
+    <div class="row"><span class="label">Email / ອີເມວ:</span><span class="field"></span></div>
+    <div class="row" style="grid-column:1/-1;"><span class="label">Address / ທີ່ຢູ່:</span><span class="field"></span></div>
+  </div>
+
+  <div class="note" style="margin-top:18px;">
+    Pricing model / ຮູບແບບການຄິດໄລ່: <strong>One-time perpetual license per module (USD)</strong> — ສິດການໃຊ້ງານຖາວອນ, ຈ່າຍຄັ້ງດຽວຕໍ່ໂມດູນ
+  </div>
+
+  <!-- 1. CORE PLATFORM & MASTER DATA -->
+  <h2 class="section-title">1. Core Platform & Master Data — Required Base <span class="lao">/ ພື້ນຖານທີ່ຕ້ອງມີ</span></h2>
+  <div class="note">Every deployment includes this foundation. / ທຸກລະບົບຕ້ອງມີໂມດູນພື້ນຖານນີ້.</div>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1.1</td>
+        <td class="module-name">Core Platform & Security<span class="lao">ລະບົບຫຼັກ ແລະ ຄວາມປອດໄພ</span></td>
+        <td class="includes">Authentication, User Management, Roles & Permissions, Audit Logs, Multi-Language (EN/LO/ZH), Multi-Currency (LAK/THB/USD), Dashboard<span class="lao">ການເຂົ້າສູ່ລະບົບ, ຈັດການຜູ້ໃຊ້, ບົດບາດ ແລະ ສິດທິ, ບັນທຶກກິດຈະກໍາ, 3 ພາສາ, 3 ສະກຸນເງິນ, ໜ້າສະຫຼຸບ</span></td>
+        <td class="price">$650</td></tr>
+      <tr><td class="num">1.2</td>
+        <td class="module-name">Organization Setup<span class="lao">ການຕັ້ງຄ່າອົງກອນ</span></td>
+        <td class="includes">Company Info, Departments, Business Units<span class="lao">ຂໍ້ມູນບໍລິສັດ, ພະແນກ, ໜ່ວຍງານ</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">1.3</td>
+        <td class="module-name">Approval Engine<span class="lao">ລະບົບອະນຸມັດ</span></td>
+        <td class="includes">Multi-level approvals, digital signatures, QR-code verification, admin override<span class="lao">ອະນຸມັດຫຼາຍລະດັບ, ລາຍເຊັນດິຈິຕອລ, ກວດສອບດ້ວຍ QR, ສິດແອັດມິນຍົກເລີກ</span></td>
+        <td class="price">$440</td></tr>
+      <tr><td class="num">1.4</td>
+        <td class="module-name">Products<span class="lao">ສິນຄ້າ</span></td>
+        <td class="includes">Sale items & services, cost/price, barcode, categories<span class="lao">ສິນຄ້າຂາຍ ແລະ ບໍລິການ, ຕົ້ນທຶນ/ລາຄາ, ບາໂຄດ, ໝວດໝູ່</span></td>
+        <td class="price">$220</td></tr>
+      <tr><td class="num">1.5</td>
+        <td class="module-name">Customers<span class="lao">ລູກຄ້າ</span></td>
+        <td class="includes">Customer master, contacts, credit terms<span class="lao">ຂໍ້ມູນລູກຄ້າ, ຜູ້ຕິດຕໍ່, ເງື່ອນໄຂສິນເຊື່ອ</span></td>
+        <td class="price">$130</td></tr>
+      <tr><td class="num">1.6</td>
+        <td class="module-name">Suppliers / Vendors<span class="lao">ຜູ້ສະໜອງ</span></td>
+        <td class="includes">Vendor master, contacts, payment terms<span class="lao">ຂໍ້ມູນຜູ້ສະໜອງ, ຜູ້ຕິດຕໍ່, ເງື່ອນໄຂການຊໍາລະ</span></td>
+        <td class="price">$130</td></tr>
+      <tr><td class="num">1.7</td>
+        <td class="module-name">Warehouses<span class="lao">ສາງ</span></td>
+        <td class="includes">Multi-warehouse setup<span class="lao">ຕັ້ງຄ່າຫຼາຍສາງ</span></td>
+        <td class="price">$90</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$1,840</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 2. SALES -->
+  <h2 class="section-title">2. Sales <span class="lao">/ ໂມດູນຂາຍ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">2.1</td>
+        <td class="module-name">Quotations<span class="lao">ໃບສະເໜີລາຄາ</span></td>
+        <td class="includes">Create, approve, PDF export, QR-verified watermark<span class="lao">ສ້າງ, ອະນຸມັດ, ສົ່ງອອກ PDF, ລາຍນໍ້າພ້ອມ QR</span></td>
+        <td class="price">$310</td></tr>
+      <tr><td class="num">2.2</td>
+        <td class="module-name">Invoices<span class="lao">ໃບແຈ້ງໜີ້</span></td>
+        <td class="includes">Convert from quotation, multi-currency, print<span class="lao">ປ່ຽນຈາກໃບສະເໜີລາຄາ, ຫຼາຍສະກຸນເງິນ, ພິມ</span></td>
+        <td class="price">$310</td></tr>
+      <tr><td class="num">2.3</td>
+        <td class="module-name">Delivery Notes<span class="lao">ໃບສົ່ງສິນຄ້າ</span></td>
+        <td class="includes">Generate from invoices, stock-out integration<span class="lao">ສ້າງຈາກໃບແຈ້ງໜີ້, ຕັດສະຕັອກ</span></td>
+        <td class="price">$220</td></tr>
+      <tr><td class="num">2.4</td>
+        <td class="module-name">Credit Notes<span class="lao">ໃບຫຼຸດໜີ້</span></td>
+        <td class="includes">Returns & refunds processing<span class="lao">ຄືນສິນຄ້າ ແລະ ຄືນເງິນ</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">2.5</td>
+        <td class="module-name">Accounts Receivable (AR)<span class="lao">ບັນຊີລູກໜີ້</span></td>
+        <td class="includes">Payment collection, aging, partial payments<span class="lao">ຮັບເງິນ, ອາຍຸໜີ້, ຮັບເງິນບາງສ່ວນ</span></td>
+        <td class="price">$260</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$1,280</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 3. PURCHASING -->
+  <h2 class="section-title">3. Purchasing <span class="lao">/ ໂມດູນຈັດຊື້</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">3.1</td>
+        <td class="module-name">Purchase Requests (PR)<span class="lao">ໃບສະເໜີຊື້</span></td>
+        <td class="includes">Request workflow with budget check<span class="lao">ຂັ້ນຕອນຂໍຊື້ ພ້ອມກວດງົບປະມານ</span></td>
+        <td class="price">$220</td></tr>
+      <tr><td class="num">3.2</td>
+        <td class="module-name">Price Comparisons<span class="lao">ປຽບທຽບລາຄາ</span></td>
+        <td class="includes">Multi-vendor quote comparison<span class="lao">ປຽບທຽບລາຄາຈາກຫຼາຍຜູ້ສະໜອງ</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">3.3</td>
+        <td class="module-name">Purchase Orders (PO)<span class="lao">ໃບສັ່ງຊື້</span></td>
+        <td class="includes">Auto-complete PO, receive against PO<span class="lao">ສ້າງ PO ອັດຕະໂນມັດ, ຮັບເຂົ້າຕາມ PO</span></td>
+        <td class="price">$310</td></tr>
+      <tr><td class="num">3.4</td>
+        <td class="module-name">PO Tracking<span class="lao">ຕິດຕາມ PO</span></td>
+        <td class="includes">Status, expected delivery, partial receipts<span class="lao">ສະຖານະ, ກໍານົດສົ່ງ, ຮັບບາງສ່ວນ</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">3.5</td>
+        <td class="module-name">Accounts Payable (AP)<span class="lao">ບັນຊີເຈົ້າໜີ້</span></td>
+        <td class="includes">Vendor payments, aging, scheduled payments<span class="lao">ຈ່າຍຜູ້ສະໜອງ, ອາຍຸໜີ້, ກໍານົດຈ່າຍ</span></td>
+        <td class="price">$260</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$1,150</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 4. INVENTORY & STOCK -->
+  <h2 class="section-title">4. Inventory & Stock <span class="lao">/ ສິນຄ້າຄົງຄັງ ແລະ ສະຕັອກ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">4.1</td>
+        <td class="module-name">Stock Movements<span class="lao">ການເຄື່ອນໄຫວສະຕັອກ</span></td>
+        <td class="includes">In / Out / Transfer with approval<span class="lao">ເຂົ້າ / ອອກ / ໂອນ ພ້ອມອະນຸມັດ</span></td>
+        <td class="price">$260</td></tr>
+      <tr><td class="num">4.2</td>
+        <td class="module-name">Stock Counting<span class="lao">ນັບສະຕັອກ</span></td>
+        <td class="includes">Physical count with variance report<span class="lao">ນັບຈິງ ພ້ອມລາຍງານສ່ວນຕ່າງ</span></td>
+        <td class="price">$220</td></tr>
+      <tr><td class="num">4.3</td>
+        <td class="module-name">Inventory (Office Supplies)<span class="lao">ວັດສະດຸສໍານັກງານ</span></td>
+        <td class="includes">Consumables tracking, low-stock alerts<span class="lao">ຕິດຕາມວັດສະດຸໃຊ້ສອຍ, ແຈ້ງເຕືອນຕໍ່າ</span></td>
+        <td class="price">$180</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$660</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 5. POS -->
+  <h2 class="section-title">5. Point of Sale (POS) <span class="lao">/ ລະບົບຂາຍໜ້າຮ້ານ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">5.1</td>
+        <td class="module-name">POS Terminal<span class="lao">ໜ້າຈໍຂາຍ</span></td>
+        <td class="includes">Barcode scan, receipt print, cash / transfer<span class="lao">ສະແກນບາໂຄດ, ພິມບິນ, ເງິນສົດ / ໂອນ</span></td>
+        <td class="price">$400</td></tr>
+      <tr><td class="num">5.2</td>
+        <td class="module-name">POS Sessions<span class="lao">ກະຂາຍ</span></td>
+        <td class="includes">Open / close cashier sessions, cash reconciliation<span class="lao">ເປີດ / ປິດກະ, ສະຫຼຸບເງິນສົດ</span></td>
+        <td class="price">$130</td></tr>
+      <tr><td class="num">5.3</td>
+        <td class="module-name">Promotions<span class="lao">ໂປຣໂມຊັນ</span></td>
+        <td class="includes">Discount rules, time-bound promotions<span class="lao">ກົດສ່ວນຫຼຸດ, ໂປຣໂມຊັນຕາມເວລາ</span></td>
+        <td class="price">$130</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$660</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 6. ACCOUNTING -->
+  <h2 class="section-title">6. Accounting <span class="lao">/ ບັນຊີ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">6.1</td>
+        <td class="module-name">Chart of Accounts<span class="lao">ຜັງບັນຊີ</span></td>
+        <td class="includes">Custom GL accounts, hierarchical<span class="lao">ຜັງບັນຊີຕາມຄວາມຕ້ອງການ, ມີລໍາດັບຊັ້ນ</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">6.2</td>
+        <td class="module-name">Journal Entries<span class="lao">ບັນຊີລາຍວັນ</span></td>
+        <td class="includes">Manual & auto-posted entries<span class="lao">ບັນທຶກດ້ວຍມື ແລະ ອັດຕະໂນມັດ</span></td>
+        <td class="price">$220</td></tr>
+      <tr><td class="num">6.3</td>
+        <td class="module-name">Currency Rates<span class="lao">ອັດຕາແລກປ່ຽນ</span></td>
+        <td class="includes">Daily rate management, auto conversion<span class="lao">ຈັດການອັດຕາແລກປ່ຽນປະຈໍາວັນ, ປ່ຽນອັດຕະໂນມັດ</span></td>
+        <td class="price">$90</td></tr>
+      <tr><td class="num">6.4</td>
+        <td class="module-name">Budgets<span class="lao">ງົບປະມານ</span></td>
+        <td class="includes">Department / project budgets, variance tracking<span class="lao">ງົບປະມານພະແນກ / ໂຄງການ, ຕິດຕາມສ່ວນຕ່າງ</span></td>
+        <td class="price">$210</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$700</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 7. FIXED ASSETS -->
+  <h2 class="section-title">7. Fixed Assets <span class="lao">/ ຊັບສິນຖາວອນ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">7.1</td>
+        <td class="module-name">Asset Register<span class="lao">ທະບຽນຊັບສິນ</span></td>
+        <td class="includes">Asset master, categories, locations<span class="lao">ທະບຽນຊັບສິນ, ໝວດໝູ່, ສະຖານທີ່</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">7.2</td>
+        <td class="module-name">Depreciation<span class="lao">ຄ່າເສື່ອມ</span></td>
+        <td class="includes">Straight-line depreciation, periodic posting<span class="lao">ຄ່າເສື່ອມແບບເສັ້ນຊື່, ບັນທຶກຕາມງວດ</span></td>
+        <td class="price">$130</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$310</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 8. HR & PAYROLL -->
+  <h2 class="section-title">8. HR & Payroll <span class="lao">/ ຊັບພະຍາກອນມະນຸດ ແລະ ເງິນເດືອນ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">8.1</td>
+        <td class="module-name">Employees<span class="lao">ພະນັກງານ</span></td>
+        <td class="includes">Employee master, departments, positions<span class="lao">ຂໍ້ມູນພະນັກງານ, ພະແນກ, ຕໍາແໜ່ງ</span></td>
+        <td class="price">$220</td></tr>
+      <tr><td class="num">8.2</td>
+        <td class="module-name">Attendance<span class="lao">ການເຂົ້າວຽກ</span></td>
+        <td class="includes">Check-in / out, attendance records<span class="lao">ລົງເວລາເຂົ້າ / ອອກ, ບັນທຶກການເຂົ້າວຽກ</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">8.3</td>
+        <td class="module-name">Leave Management<span class="lao">ການລາ</span></td>
+        <td class="includes">Leave types, leave requests with approval<span class="lao">ປະເພດການລາ, ສະເໜີລາ ພ້ອມອະນຸມັດ</span></td>
+        <td class="price">$180</td></tr>
+      <tr><td class="num">8.4</td>
+        <td class="module-name">Public Holidays<span class="lao">ວັນພັກລັດຖະການ</span></td>
+        <td class="includes">Holiday calendar<span class="lao">ປະຕິທິນວັນພັກ</span></td>
+        <td class="price">$40</td></tr>
+      <tr><td class="num">8.5</td>
+        <td class="module-name">Payroll<span class="lao">ເງິນເດືອນ</span></td>
+        <td class="includes">Monthly payroll calculation, payslips<span class="lao">ຄິດໄລ່ເງິນເດືອນປະຈໍາເດືອນ, ສະຫຼິບເງິນເດືອນ</span></td>
+        <td class="price">$310</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$930</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 9. PROJECTS -->
+  <h2 class="section-title">9. Projects <span class="lao">/ ໂຄງການ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">9.1</td>
+        <td class="module-name">Project Management<span class="lao">ການຈັດການໂຄງການ</span></td>
+        <td class="includes">Projects, members, tasks, cost tracking<span class="lao">ໂຄງການ, ສະມາຊິກ, ໜ້າວຽກ, ຕິດຕາມຕົ້ນທຶນ</span></td>
+        <td class="price">$400</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$400</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 10. DOCUMENT IN-OUT -->
+  <h2 class="section-title">10. Document In-Out (Correspondence) <span class="lao">/ ໜັງສືເຂົ້າ-ອອກ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">10.1</td>
+        <td class="module-name">Correspondence Register<span class="lao">ທະບຽນໜັງສືເຂົ້າ-ອອກ</span></td>
+        <td class="includes">Incoming & outgoing letters, auto ref numbers, routing to dept/user, auto status transitions, multi-file attachments (PDF, MS Office, image, video — up to 50 MB)<span class="lao">ໜັງສືເຂົ້າ-ອອກ, ສ້າງເລກອັດຕະໂນມັດ, ສົ່ງເຖິງພະແນກ/ຜູ້ໃຊ້, ປ່ຽນສະຖານະອັດຕະໂນມັດ, ແນບໄຟລ໌ຫຼາຍປະເພດ</span></td>
+        <td class="price">$350</td></tr>
+      <tr><td class="num">10.2</td>
+        <td class="module-name">Approval Workflow & Settings<span class="lao">ຂັ້ນຕອນອະນຸມັດ ແລະ ການຕັ້ງຄ່າ</span></td>
+        <td class="includes">Sequential approval chain for outgoing letters, admin settings page, approval timeline, admin override, visibility control<span class="lao">ຂັ້ນຕອນອະນຸມັດຕາມລຳດັບ, ໜ້າຕັ້ງຄ່າຜູ້ອະນຸມັດ, ເບິ່ງລຳດັບການອະນຸມັດ, ຄວບຄຸມການເຂົ້າເຖິງ</span></td>
+        <td class="price">$180</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$530</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 11. REPORTS -->
+  <h2 class="section-title">11. Reports & Analytics <span class="lao">/ ລາຍງານ ແລະ ການວິເຄາະ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Module / ໂມດູນ</th><th>Includes / ປະກອບດ້ວຍ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">11.1</td>
+        <td class="module-name">Reports Suite<span class="lao">ຊຸດລາຍງານ</span></td>
+        <td class="includes">13 report modules: Sales, Purchases, Stock, Inventory, Finance, Accounting, POS, Quotations, Invoices, Receive, Fixed Assets, Documents, Master Data, Summary — with PDF & Excel export<span class="lao">13 ໂມດູນລາຍງານ ພ້ອມສົ່ງອອກ PDF ແລະ Excel</span></td>
+        <td class="price">$660</td></tr>
+      <tr class="subtotal"><td colspan="3" style="text-align:right;">Subtotal / ລວມຍ່ອຍ</td><td>$660</td></tr>
+    </tbody>
+  </table>
+
+  <!-- MODULE SUMMARY -->
+  <div class="summary">
+    <h3>Module Summary / ສະຫຼຸບໂມດູນ</h3>
+    <table>
+      <thead><tr><th class="num">#</th><th>Group / ກຸ່ມ</th><th>Subtotal (USD)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Core Platform & Master Data <em>(required / ຕ້ອງມີ)</em></td><td>$1,840</td></tr>
+        <tr><td>2</td><td>Sales / ຂາຍ</td><td>$1,280</td></tr>
+        <tr><td>3</td><td>Purchasing / ຈັດຊື້</td><td>$1,150</td></tr>
+        <tr><td>4</td><td>Inventory & Stock / ສະຕັອກ</td><td>$660</td></tr>
+        <tr><td>5</td><td>POS / ຂາຍໜ້າຮ້ານ</td><td>$660</td></tr>
+        <tr><td>6</td><td>Accounting / ບັນຊີ</td><td>$700</td></tr>
+        <tr><td>7</td><td>Fixed Assets / ຊັບສິນຖາວອນ</td><td>$310</td></tr>
+        <tr><td>8</td><td>HR & Payroll / HR & ເງິນເດືອນ</td><td>$930</td></tr>
+        <tr><td>9</td><td>Projects / ໂຄງການ</td><td>$400</td></tr>
+        <tr><td>10</td><td>Document In-Out / ໜັງສືເຂົ້າ-ອອກ</td><td>$530</td></tr>
+        <tr><td>11</td><td>Reports & Analytics / ລາຍງານ</td><td>$660</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right;">Software Total (all modules) / ລວມຊອບແວທັງໝົດ</td><td>$9,120</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PACKAGES -->
+  <h2 class="section-title">Package Discounts <span class="lao">/ ສ່ວນຫຼຸດແພັກເກັດ</span></h2>
+  <div class="packages">
+    <div class="pkg">
+      <div class="name">Starter</div>
+      <div class="lao">ເລີ່ມຕົ້ນ</div>
+      <div class="price">$2,850 <span class="strike">$3,120</span></div>
+      <div class="desc">Core + Master Data + Sales<br>(Modules 1 + 2)</div>
+    </div>
+    <div class="pkg featured">
+      <div class="name">Business</div>
+      <div class="lao">ທຸລະກິດ</div>
+      <div class="price">$5,500 <span class="strike">$6,120</span></div>
+      <div class="desc">Core + Sales + Purchasing + Stock + Document In-Out + Reports<br>(Modules 1, 2, 3, 4, 10, 11)</div>
+    </div>
+    <div class="pkg">
+      <div class="name">Enterprise</div>
+      <div class="lao">ເຕັມລະບົບ</div>
+      <div class="price">$7,750 <span class="strike">$9,120</span></div>
+      <div class="desc">All 11 modules<br>(ໂມດູນທັງໝົດ)</div>
+    </div>
+  </div>
+
+  <!-- OPTIONAL SERVICES -->
+  <h2 class="section-title">Optional Services <span class="lao">/ ບໍລິການເສີມ</span></h2>
+  <table>
+    <thead><tr><th class="num">#</th><th>Service / ບໍລິການ</th><th>Detail / ລາຍລະອຽດ</th><th>Price (USD)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">A</td>
+        <td class="module-name">Installation & Setup<span class="lao">ຕິດຕັ້ງ ແລະ ຕັ້ງຄ່າ</span></td>
+        <td class="includes">On-premise install, domain, SSL, initial config<span class="lao">ຕິດຕັ້ງເຊີເວີ, ໂດເມນ, SSL, ຕັ້ງຄ່າເບື້ອງຕົ້ນ</span></td>
+        <td class="price">$350</td></tr>
+      <tr><td class="num">B</td>
+        <td class="module-name">Data Migration<span class="lao">ນໍາເຂົ້າຂໍ້ມູນ</span></td>
+        <td class="includes">Import existing products / customers / vendors / opening balances<span class="lao">ນໍາເຂົ້າຂໍ້ມູນເດີມ</span></td>
+        <td class="price">$260</td></tr>
+      <tr><td class="num">C</td>
+        <td class="module-name">Training (2 days)<span class="lao">ຝຶກອົບຮົມ 2 ມື້</span></td>
+        <td class="includes">Admin & end-user training, materials in EN + LO<span class="lao">ຝຶກອົບຮົມຜູ້ບໍລິຫານ ແລະ ຜູ້ໃຊ້, ເອກະສານ EN + LO</span></td>
+        <td class="price">$220</td></tr>
+      <tr><td class="num">D</td>
+        <td class="module-name">Customization (per day)<span class="lao">ປັບແຕ່ງ ຕໍ່ມື້</span></td>
+        <td class="includes">Custom report, custom workflow, custom integration<span class="lao">ລາຍງານ, workflow, ການເຊື່ອມຕໍ່ພິເສດ</span></td>
+        <td class="price">$90/day</td></tr>
+      <tr><td class="num">E</td>
+        <td class="module-name">Annual Support & Updates<span class="lao">ສະໜັບສະໜູນ ແລະ ອັບເດດປະຈໍາປີ</span></td>
+        <td class="includes">Bug fixes, minor updates, email support (10-business-day SLA)<span class="lao">ແກ້ໄຂ bug, ອັບເດດເລັກນ້ອຍ, support ທາງອີເມວ (SLA 10 ມື້ລັດຖະການ)</span></td>
+        <td class="price">20% / year</td></tr>
+    </tbody>
+  </table>
+
+  <!-- TERMS -->
+  <h2 class="section-title">Terms & Conditions <span class="lao">/ ເງື່ອນໄຂ</span></h2>
+  <div class="terms">
+    <ol>
+      <li><strong>Payment / ການຊໍາລະ:</strong> 50% upon contract signing, 50% upon delivery & acceptance / ມັດຈໍາ 50% ຕອນເຊັນສັນຍາ, ຈ່າຍ 50% ຕອນສົ່ງມອບ ແລະ ຕອບຮັບ.</li>
+      <li><strong>Delivery / ການສົ່ງມອບ:</strong> 4–8 weeks depending on scope / 4–8 ອາທິດ ຂຶ້ນກັບຂອບເຂດງານ.</li>
+      <li><strong>License / ສິດການໃຊ້ງານ:</strong> Perpetual, unlimited internal users, single legal entity / ຖາວອນ, ຜູ້ໃຊ້ພາຍໃນບໍ່ຈໍາກັດ, 1 ນິຕິບຸກຄົນ.</li>
+      <li><strong>Hosting / ການວາງລະບົບ:</strong> Customer-provided server, or +$130/month cloud option / ລູກຄ້າຈັດຫາເຊີເວີ, ຫຼື +$130/ເດືອນ ສໍາລັບ cloud.</li>
+      <li><strong>Source code / Source code:</strong> Not included by default; escrow available on request / ບໍ່ລວມໂດຍປະລິຍາຍ, ສາມາດຝາກໄວ້ກັບຄົນກາງໄດ້.</li>
+      <li><strong>Warranty / ການຮັບປະກັນ:</strong> 90 days bug-fix warranty included / ຮັບປະກັນແກ້ໄຂ bug 90 ວັນ.</li>
+      <li><strong>Validity / ການໃຊ້ໄດ້:</strong> This quotation is valid for 30 days / ໃບສະເໜີລາຄາໃຊ້ໄດ້ 30 ວັນ.</li>
+    </ol>
+  </div>
+
+  <!-- SIGNATURES -->
+  <div class="signatures">
+    <div class="sig-box">
+      <h4>Customer / ລູກຄ້າ</h4>
+      <div class="sig-line"><span class="label">Name / ຊື່:</span><span class="field"></span></div>
+      <div class="sig-line"><span class="label">Position / ຕໍາແໜ່ງ:</span><span class="field"></span></div>
+      <div class="sig-line"><span class="label">Signature / ລາຍເຊັນ:</span><span class="field"></span></div>
+      <div class="sig-line"><span class="label">Date / ວັນທີ:</span><span class="field"></span></div>
+    </div>
+    <div class="sig-box">
+      <h4>Vendor / ຜູ້ສະໜອງ</h4>
+      <div class="sig-line"><span class="label">Name / ຊື່:</span><span class="field"></span></div>
+      <div class="sig-line"><span class="label">Position / ຕໍາແໜ່ງ:</span><span class="field"></span></div>
+      <div class="sig-line"><span class="label">Signature / ລາຍເຊັນ:</span><span class="field"></span></div>
+      <div class="sig-line"><span class="label">Date / ວັນທີ:</span><span class="field"></span></div>
+    </div>
+  </div>
+
+  <div class="footer">FLOWBIZ &mdash; Streamline Your Entire Business Operations</div>
+
+</div>
+
+</body>
+</html>
