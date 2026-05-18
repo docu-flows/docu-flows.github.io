@@ -64,13 +64,13 @@ form?.addEventListener('submit', (e) => {
   const email = (data.get('email') || '').toString().trim();
 
   if (!name || !email) {
-    status.style.color = '#fca5a5';
+    status.style.color = '#dc2626';
     status.textContent = 'Please enter your name and email.';
     return;
   }
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!emailOk) {
-    status.style.color = '#fca5a5';
+    status.style.color = '#dc2626';
     status.textContent = 'That email address looks invalid.';
     return;
   }
